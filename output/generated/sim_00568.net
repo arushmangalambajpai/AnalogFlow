@@ -1,0 +1,38 @@
+* D:\AnalogFlow\output\generated\sim_00568.asc
+VCC N001 0 5
+VEE N009 0 -5
+V1 Vin1 0 DC {VIN1}
+V2 Vin2 0 DC {VIN2}
+XINPUT_BUFFER_1 Vin1 N002 N001 N009 N002 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XINPUT_BUFFER_2 Vin2 N013 N001 N009 N013 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+XWEIGHTED_SUM 0 N004 N001 N009 Vz level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+Rf Vz N004 20k
+Vbias N014 0 {VBIAS}
+Rb N014 N004 20k
+XGAIN_STAGE 0 N008 N001 N009 N005 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R3 N008 Vz 10k
+R4 N005 N008 10k
+XACTIVATION 0 N006 N001 N009 N007 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+Rin N006 N005 10k
+Rf2 N007 N006 4.7k
+XLIMITER 0 N003 N001 N009 N011 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+D1 N003 N011 D
+D2 N011 N003 D
+R5 N003 N012 10k
+R6 N011 N003 20k
+XOUTPUT_STAGE N007 N010 N001 N009 Vout level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+Vref N010 0 {VTH}
+R_WEIGHT1 N002 N004 {W1}
+R_WEIGHT2 N013 N004 {W2}
+.model D D
+.lib C:\Users\arush\AppData\Local\LTspice\lib\cmp\standard.dio
+.tran 100m uic
+.param W1=20k
+.param W2=20k
+.param VBIAS=2
+.param VTH=-1.4
+.param VIN1=4.2
+.param VIN2=4.2
+.lib UniversalOpAmp2.lib
+.backanno
+.end
