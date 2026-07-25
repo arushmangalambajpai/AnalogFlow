@@ -1,938 +1,469 @@
 <div align="center">
 
+# AnalogFlow
 
+### An Automation Framework for LTspice-Based Analog Circuit Characterization
 
-\# AnalogFlow
+*Automate schematic generation, simulation, waveform extraction, parameter sweeps, and analog circuit characterization.*
 
+---
 
-
-\### An Automation Framework for LTspice-Based Analog Circuit Characterization
-
-
-
-\*Automate schematic generation, simulation, waveform extraction, parameter sweeps, and analog circuit characterization.\*
-
-
-
-\---
-
-
-
-!\[Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
-
-!\[LTspice](https://img.shields.io/badge/LTspice-24-orange.svg)
-
-!\[License](https://img.shields.io/badge/License-MIT-green.svg)
-
-
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![LTspice](https://img.shields.io/badge/LTspice-24-orange.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 </div>
 
+---
 
-
-\---
-
-
-
-\# Overview
-
-
+# Overview
 
 AnalogFlow is a lightweight Python framework that automates the complete LTspice simulation workflow.
 
-
-
 Instead of manually editing schematics, launching simulations, exporting waveforms, and processing results, AnalogFlow provides a reproducible pipeline that performs these operations automatically.
-
-
 
 The framework is designed for:
 
+- Analog circuit characterization
+- Parameter sweeps
+- Comparator analysis
+- Neural circuit exploration
+- Research automation
+- Rapid design-space exploration
 
+---
 
-\- Analog circuit characterization
+# Features
 
-\- Parameter sweeps
-
-\- Comparator analysis
-
-\- Neural circuit exploration
-
-\- Research automation
-
-\- Rapid design-space exploration
-
-
-
-\---
-
-
-
-\# Features
-
-
-
-\## Automatic Parameter Editing
-
-
+## Automatic Parameter Editing
 
 Programmatically modify LTspice parameters without editing schematic files manually.
 
+- Resistors
+- Capacitors
+- Voltage sources
+- Custom `.param` values
 
+---
 
-\- Resistors
-
-\- Capacitors
-
-\- Voltage sources
-
-\- Custom `.param` values
-
-
-
-\---
-
-
-
-\## Batch LTspice Simulation
-
-
+## Batch LTspice Simulation
 
 Launch LTspice directly from Python.
 
-
-
 Supports:
 
+- Batch mode
+- Automatic RAW detection
+- Automatic LOG detection
+- Error reporting
 
+---
 
-\- Batch mode
-
-\- Automatic RAW detection
-
-\- Automatic LOG detection
-
-\- Error reporting
-
-
-
-\---
-
-
-
-\## RAW File Parsing
-
-
+## RAW File Parsing
 
 Read LTspice RAW files directly.
 
-
-
 Retrieve
 
-
-
-\- simulation time
-
-\- node voltages
-
-\- currents
-
-\- arbitrary traces
-
-
+- simulation time
+- node voltages
+- currents
+- arbitrary traces
 
 without exporting data manually.
 
+---
 
-
-\---
-
-
-
-\## CSV Export
-
-
+## CSV Export
 
 Convert LTspice simulations into CSV datasets suitable for
 
+- NumPy
+- Pandas
+- MATLAB
+- Excel
+- Machine Learning workflows
 
+---
 
-\- NumPy
-
-\- Pandas
-
-\- MATLAB
-
-\- Excel
-
-\- Machine Learning workflows
-
-
-
-\---
-
-
-
-\## Automated Circuit Characterization
-
-
+## Automated Circuit Characterization
 
 Generate complete characterization datasets automatically.
 
-
-
 Examples include
 
+- Voltage transfer characteristics
+- 2D parameter sweeps
+- Threshold analysis
+- Activation maps
+- Binary decision regions
 
+---
 
-\- Voltage transfer characteristics
-
-\- 2D parameter sweeps
-
-\- Threshold analysis
-
-\- Activation maps
-
-\- Binary decision regions
-
-
-
-\---
-
-
-
-\## Report Generation
-
-
+## Report Generation
 
 Automatically generate
 
+- CSV datasets
+- Markdown reports
+- Heatmaps
+- Publication-ready figures
 
+---
 
-\- CSV datasets
-
-\- Markdown reports
-
-\- Heatmaps
-
-\- Publication-ready figures
-
-
-
-\---
-
-
-
-\# Framework Architecture
-
-
+# Framework Architecture
 
 ```
-
-&#x20;                LTspice Schematic
-
-&#x20;                       │
-
-&#x20;                       ▼
-
-&#x20;             ParameterEditor
-
-&#x20;                       │
-
-&#x20;                       ▼
-
-&#x20;           Generated Schematics
-
-&#x20;                       │
-
-&#x20;                       ▼
-
-&#x20;              LTSpiceRunner
-
-&#x20;                       │
-
-&#x20;                       ▼
-
-&#x20;            LTspice RAW / LOG
-
-&#x20;                       │
-
-&#x20;                       ▼
-
-&#x20;              LTSpiceParser
-
-&#x20;               │            │
-
-&#x20;               ▼            ▼
-
-&#x20;        CSV Exporter   Characterization
-
-&#x20;               │            │
-
-&#x20;               └──────┬─────┘
-
-&#x20;                      ▼
-
-&#x20;            Reports • CSV • Figures
-
+                 LTspice Schematic
+                        │
+                        ▼
+              ParameterEditor
+                        │
+                        ▼
+            Generated Schematics
+                        │
+                        ▼
+               LTSpiceRunner
+                        │
+                        ▼
+             LTspice RAW / LOG
+                        │
+                        ▼
+               LTSpiceParser
+                │            │
+                ▼            ▼
+         CSV Exporter   Characterization
+                │            │
+                └──────┬─────┘
+                       ▼
+             Reports • CSV • Figures
 ```
 
+---
 
-
-\---
-
-
-
-\# Project Structure
-
-
+# Project Structure
 
 ```
-
 AnalogFlow/
 
-
-
 │
-
 ├── analog/
-
 │   ├── LTspice schematics
-
 │   └── generated schematics
-
 │
-
 ├── analogflow/
-
-│   ├── parameter\_editor.py
-
+│   ├── parameter_editor.py
 │   ├── runner.py
-
 │   ├── parser.py
-
 │   ├── exporter.py
-
 │   └── experiment.py
-
 │
-
 ├── python/
-
 │   ├── characterize.py
-
-│   ├── characterize\_neuron.py
-
-│   ├── test\_runner.py
-
-│   ├── test\_parser.py
-
-│   ├── test\_parameter\_editor.py
-
-│   ├── plot\_results.py
-
+│   ├── characterize_neuron.py
+│   ├── test_runner.py
+│   ├── test_parser.py
+│   ├── test_parameter_editor.py
+│   ├── plot_results.py
 │   └── ...
-
 │
-
 ├── output/
-
 │
-
 ├── results/
-
 │
-
 ├── README.md
-
 └── LICENSE
-
 ```
 
+---
 
+# Core Modules
 
-\---
-
-
-
-\# Core Modules
-
-
-
-\## ParameterEditor
-
-
+## ParameterEditor
 
 Reads LTspice schematics and modifies parameter values.
 
-
-
 Example
 
-
-
 ```python
-
 editor = ParameterEditor(source)
 
-
-
-editor.set\_parameter("R1", "20k")
-
-
+editor.set_parameter("R1", "20k")
 
 editor.save(output)
-
 ```
 
+---
 
-
-\---
-
-
-
-\## LTSpiceRunner
-
-
+## LTSpiceRunner
 
 Launches LTspice simulations directly.
 
-
-
 ```python
-
 runner = LTSpiceRunner(LTSPICE)
 
-
-
 simulation = runner.run(schematic)
-
 ```
-
-
 
 Automatically detects
 
+- RAW file
+- LOG file
+- NET file
 
+---
 
-\- RAW file
-
-\- LOG file
-
-\- NET file
-
-
-
-\---
-
-
-
-\## LTSpiceParser
-
-
+## LTSpiceParser
 
 Reads LTspice RAW files.
 
-
-
 ```python
-
 parser = LTSpiceParser(raw)
 
+time = parser.get_time()
 
-
-time = parser.get\_time()
-
-
-
-vout = parser.get\_trace("V(vout)")
-
+vout = parser.get_trace("V(vout)")
 ```
 
+---
 
-
-\---
-
-
-
-\## CSVExporter
-
-
+## CSVExporter
 
 Converts simulation results into CSV format.
 
-
-
 ```python
-
 exporter = CSVExporter(parser)
 
-
-
-exporter.export(csv\_file)
-
+exporter.export(csv_file)
 ```
 
+---
 
-
-\---
-
-
-
-\# Example Workflow
-
-
+# Example Workflow
 
 ```
-
 LTspice Schematic
 
+        │
 
-
-&#x20;       │
-
-
-
-&#x20;       ▼
-
-
+        ▼
 
 Parameter Editing
 
+        │
 
-
-&#x20;       │
-
-
-
-&#x20;       ▼
-
-
+        ▼
 
 Simulation
 
+        │
 
-
-&#x20;       │
-
-
-
-&#x20;       ▼
-
-
+        ▼
 
 RAW Parsing
 
+        │
 
-
-&#x20;       │
-
-
-
-&#x20;       ▼
-
-
+        ▼
 
 CSV Export
 
+        │
 
-
-&#x20;       │
-
-
-
-&#x20;       ▼
-
-
+        ▼
 
 Characterization
 
+        │
 
-
-&#x20;       │
-
-
-
-&#x20;       ▼
-
-
+        ▼
 
 Heatmaps
-
 Reports
-
 Statistics
-
 ```
 
+---
 
-
-\---
-
-
-
-\# Neuron Characterization
-
-
+# Neuron Characterization
 
 AnalogFlow includes an automated neuron characterization workflow.
 
-
-
 The characterization script performs a complete two-dimensional sweep of input voltages.
-
-
 
 For every operating point it
 
-
-
-\- Generates a parameterized schematic
-
-\- Runs LTspice
-
-\- Extracts the final output voltage
-
-\- Classifies the neuron output
-
-\- Generates visualization
-
-
+- Generates a parameterized schematic
+- Runs LTspice
+- Extracts the final output voltage
+- Classifies the neuron output
+- Generates visualization
 
 Outputs include
 
+- Continuous activation heatmap
+- Binary classification map
+- CSV dataset
+- Markdown report
 
+---
 
-\- Continuous activation heatmap
+# Example Results
 
-\- Binary classification map
-
-\- CSV dataset
-
-\- Markdown report
-
-
-
-\---
-
-
-
-\# Example Results
-
-
-
-\## Continuous Activation Map
-
-
+## Continuous Activation Map
 
 <p align="center">
-
-<img src="docs/images/activation\_heatmap.png" width="650">
-
+<img src="docs/images/activation_heatmap.png" width="650">
 </p>
 
+---
 
-
-\---
-
-
-
-\## Binary Classification Map
-
-
+## Binary Classification Map
 
 <p align="center">
-
-<img src="docs/images/classification\_heatmap.png" width="650">
-
+<img src="docs/images/classification_heatmap.png" width="650">
 </p>
 
+---
 
-
-\---
-
-
-
-\# Installation
-
-
+# Installation
 
 Clone the repository
 
-
-
 ```bash
-
 git clone https://github.com/<username>/AnalogFlow.git
 
-
-
 cd AnalogFlow
-
 ```
-
-
 
 Create a virtual environment
 
-
-
 ```bash
-
 python -m venv venv
-
 ```
-
-
 
 Activate
 
-
-
 Windows
 
-
-
 ```bash
-
-venv\\Scripts\\activate
-
+venv\Scripts\activate
 ```
-
-
 
 Linux
 
-
-
 ```bash
-
 source venv/bin/activate
-
 ```
-
-
 
 Install dependencies
 
-
-
 ```bash
-
 pip install -r requirements.txt
-
 ```
 
+---
 
+# Running
 
-\---
-
-
-
-\# Running
-
-
-
-\## Test LTspice
-
-
+## Test LTspice
 
 ```bash
-
-python python/test\_runner.py
-
+python python/test_runner.py
 ```
 
+---
 
-
-\---
-
-
-
-\## Parameter Sweep
-
-
+## Parameter Sweep
 
 ```bash
-
 python python/characterize.py
-
 ```
 
+---
 
-
-\---
-
-
-
-\## Neuron Characterization
-
-
+## Neuron Characterization
 
 ```bash
-
-python python/characterize\_neuron.py
-
+python python/characterize_neuron.py
 ```
 
+---
 
-
-\---
-
-
-
-\# Applications
-
-
+# Applications
 
 AnalogFlow can be used for
 
+- Analog IC Design
+- Comparator Characterization
+- Sensor Interface Evaluation
+- Operational Amplifier Analysis
+- Neural Circuits
+- Research Automation
+- Analog Design Space Exploration
+- Educational Laboratories
 
+---
 
-\- Analog IC Design
+# Current Capabilities
 
-\- Comparator Characterization
+- Automatic schematic generation
+- LTspice batch execution
+- RAW parsing
+- CSV export
+- Parameter sweeps
+- Two-dimensional characterization
+- Heatmap generation
+- Markdown report generation
 
-\- Sensor Interface Evaluation
+---
 
-\- Operational Amplifier Analysis
+# Planned Features
 
-\- Neural Circuits
+- Monte Carlo automation
+- AC sweep automation
+- Frequency response characterization
+- Noise analysis
+- Optimization engine
+- Interactive dashboard
+- GitHub Pages documentation
+- Multi-dimensional parameter sweeps
+- SPICE compatibility beyond LTspice
 
-\- Research Automation
+---
 
-\- Analog Design Space Exploration
+# Requirements
 
-\- Educational Laboratories
-
-
-
-\---
-
-
-
-\# Current Capabilities
-
-
-
-\- Automatic schematic generation
-
-\- LTspice batch execution
-
-\- RAW parsing
-
-\- CSV export
-
-\- Parameter sweeps
-
-\- Two-dimensional characterization
-
-\- Heatmap generation
-
-\- Markdown report generation
-
-
-
-\---
-
-
-
-\# Planned Features
-
-
-
-\- Monte Carlo automation
-
-\- AC sweep automation
-
-\- Frequency response characterization
-
-\- Noise analysis
-
-\- Optimization engine
-
-\- Interactive dashboard
-
-\- GitHub Pages documentation
-
-\- Multi-dimensional parameter sweeps
-
-\- SPICE compatibility beyond LTspice
-
-
-
-\---
-
-
-
-\# Requirements
-
-
-
-\- Python 3.10+
-
-\- LTspice 24
-
-\- Windows
-
-
+- Python 3.10+
+- LTspice 24
+- Windows
 
 Python Packages
 
+- numpy
+- pandas
+- matplotlib
 
+---
 
-\- numpy
-
-\- pandas
-
-\- matplotlib
-
-
-
-\---
-
-
-
-\# License
-
-
+# License
 
 Released under the MIT License.
 
+---
 
+# Author
 
-\---
-
-
-
-\# Author
-
-
-
-\*\*Arush Mangalam Bajpai\*\*
-
-
+**Arush Mangalam Bajpai**
 
 Electrical and Electronics Engineering
 
-
-
 BITS Pilani
 
-
-
-\---
-
-
+---
 
 <div align="center">
 
-
-
-\*\*AnalogFlow aims to simplify analog circuit exploration by making LTspice simulations reproducible, scriptable, and scalable.\*\*
-
-
+**AnalogFlow aims to simplify analog circuit exploration by making LTspice simulations reproducible, scriptable, and scalable.**
 
 </div>
-
